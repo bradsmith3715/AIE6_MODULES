@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title># DeepSeek-R1 Report.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="deepseek-r1-report">DeepSeek-R1 Report</h1>
+<h1 id="deepseek-r1-advancing-ai-through-reasoning-first-architecture">DeepSeek-R1: Advancing AI Through Reasoning-First Architecture</h1>
+<p>DeepSeek-R1 represents a significant milestone in artificial intelligence development, introducing a revolutionary approach that prioritizes reasoning capabilities through its innovative Mixture of Experts (MoE) architecture. Launched in January 2025, this 671B parameter model activates only 37B parameters during inference, achieving remarkable efficiency while maintaining performance comparable to much larger models.</p>
+<p>The model's development marks a departure from traditional approaches, demonstrating that sophisticated AI capabilities can be achieved through architectural innovation rather than simply scaling up model size. DeepSeek-R1's emphasis on mathematical reasoning and problem-solving, combined with its cost-effective design, has sparked renewed interest in specialized AI architectures optimized for specific cognitive tasks.</p>
+<h2 id="technical-architecture-and-innovations">Technical Architecture and Innovations</h2>
+<p><strong>DeepSeek-R1's revolutionary architecture combines a 671B parameter Mixture of Experts (MoE) model with Multi-Head Latent Attention (MLA) to achieve high performance while only activating 37B parameters during inference.</strong></p>
+<p>The MoE architecture forms the backbone of DeepSeek-R1's efficiency, using a dynamic gating mechanism to selectively activate only the most relevant expert networks for each task. This selective activation dramatically reduces computational overhead while maintaining performance comparable to much larger models.</p>
+<p>A key innovation is the MLA system, which optimizes the traditional transformer attention mechanism through latent vector compression. This reduces the Key-Value cache size to just 5-13% of conventional approaches while preserving model capabilities.</p>
+<p>The model's transformer layers incorporate both global and local attention mechanisms:</p>
+<ul>
+<li>Global attention: Captures relationships across entire input sequences</li>
+<li>Local attention: Focuses on contextually significant segments</li>
+<li>Soft Token Merging: Combines redundant tokens while preserving information</li>
+<li>Dynamic Token Inflation: Restores key details in later processing stages</li>
+</ul>
+<p>These architectural choices enable DeepSeek-R1 to achieve state-of-the-art performance in reasoning tasks while maintaining significantly lower computational costs compared to traditional dense transformer models.</p>
+<h3 id="sources">Sources</h3>
+<ul>
+<li>DeepSeek-R1: A Technical Deep Dive into its Architecture and Innovations (2024): https://medium.com/@varshitha.rodda9/deepseek-r1-a-technical-deep-dive-into-its-architecture-and-innovations-472c1eacbde3</li>
+<li>How DeepSeek-R1 Was Built (2025): https://blog.adyog.com/2025/02/01/how-deepseek-r1-was-built-architecture-and-training-explained/</li>
+<li>DeepSeek-R1: Technical Overview (2025): https://www.geeksforgeeks.org/deepseek-r1-technical-overview-of-its-architecture-and-innovations/</li>
+</ul>
+<h2 id="performance-benchmarks-and-capabilities">Performance Benchmarks and Capabilities</h2>
+<p><strong>DeepSeek-R1 demonstrates exceptional performance across benchmark tests, particularly excelling in mathematical reasoning where it achieves state-of-the-art results.</strong></p>
+<p>The model shows strong capabilities across four key categories:</p>
+<ul>
+<li>Mathematical Reasoning: Achieves 79.8% on AIME 2024 and 97.3% on MATH-500, outperforming OpenAI's o1 model</li>
+<li>Natural Language: Scores 90.8% on MMLU and 92.9% on MMLU-Redux benchmarks</li>
+<li>Code Generation: Attains 65.9% pass rate on LiveCodeBench and 2029 rating on Codeforces</li>
+<li>Chinese Language: Reaches 92.8% on CLUEWSC and 91.8% on C-Eval</li>
+</ul>
+<p>A notable strength is DeepSeek-R1's ability to maintain high performance even in distilled versions. For example, the DeepSeek-R1-Distill-Qwen-32B variant outperforms GPT-4o on mathematical reasoning tasks while using fewer parameters. This suggests effective transfer of reasoning capabilities to smaller models.</p>
+<p>The model's performance benefits from its training approach combining cold-start data with iterative reinforcement learning fine-tuning. This enables DeepSeek-R1 to achieve performance comparable to OpenAI-o1-1217 across multiple task categories while maintaining lower computational requirements.</p>
+<h3 id="sources">Sources</h3>
+<ul>
+<li>Performance and Benchmarks | deepseek-ai/DeepSeek-R1 | DeepWiki : https://deepwiki.com/deepseek-ai/DeepSeek-R1/4-performance-and-benchmarks</li>
+<li>DeepSeek R1 | DOCSAID : https://docsaid.org/en/papers/deepseek/deepseek-r1/</li>
+<li>Quantifying the Capability Boundary of DeepSeek Models: An Application... : https://arxiv.org/html/2502.11164v5</li>
+</ul>
+<h2 id="deepseek-r1-model-variants">DeepSeek-R1 Model Variants</h2>
+<p><strong>The DeepSeek-R1 family includes both large-scale models and distilled versions, strategically designed to balance computational requirements with reasoning capabilities.</strong> The flagship models are DeepSeek-R1-Zero and DeepSeek-R1, both featuring 671B total parameters with 37B activated parameters and 128K context windows.</p>
+<p>The distilled model lineup includes six variants based on Llama and Qwen architectures:</p>
+<ul>
+<li>DeepSeek-R1-Distill-Qwen-1.5B: Entry-level model for basic math reasoning</li>
+<li>DeepSeek-R1-Distill-Qwen-7B: Mid-tier mathematical tasks</li>
+<li>DeepSeek-R1-Distill-Llama-8B: Enhanced coding assistance</li>
+<li>DeepSeek-R1-Distill-Qwen-14B: Advanced problem-solving (93.9% on MATH-500)</li>
+<li>DeepSeek-R1-Distill-Qwen-32B: Complex reasoning tasks</li>
+<li>DeepSeek-R1-Distill-Llama-70B: Top performer (94.5% on MATH-500)</li>
+</ul>
+<p>These distilled models were created by fine-tuning existing open-source models using synthetic reasoning data generated by DeepSeek-R1. The DeepSeek-R1-Distill-Llama-70B demonstrates particularly strong performance, achieving the highest coding score among distilled variants with 57.5 on LiveCodeBench.</p>
+<h3 id="sources">Sources</h3>
+<ul>
+<li>DeepSeek R1: Features, o1 Comparison, Distilled Models &amp; More: https://www.datacamp.com/blog/deepseek-r1</li>
+<li>The Complete Guide to DeepSeek Models: From V3 to R1 and Beyond: https://www.bentoml.com/blog/the-complete-guide-to-deepseek-models-from-v3-to-r1-and-beyond</li>
+<li>deepseek-ai/DeepSeek-R1-Distill-Llama-70B: https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-70B</li>
+</ul>
+<h2 id="comparison-with-competing-ai-models">Comparison with Competing AI Models</h2>
+<p><strong>DeepSeek-R1's key differentiator is its specialized focus on reasoning capabilities, while competitors like GPT-4o excel at multimodal interactions</strong>. Through extensive reinforcement learning and a unique distillation approach, DeepSeek-R1 demonstrates superior performance on complex reasoning tasks, particularly in STEM fields.</p>
+<p>Benchmark comparisons reveal DeepSeek-R1's strengths and limitations:</p>
+<ul>
+<li>MMLU Performance: Achieves 90.8% versus GPT-4o's 86.4%</li>
+<li>Cost Efficiency: Significantly lower pricing at $0.55/1M input tokens versus GPT-4o's $30/1M</li>
+<li>Context Length: Matches GPT-4o with 128K token context window</li>
+<li>Limitations: Shows inconsistency in multilingual tasks and tendency toward hallucinations</li>
+</ul>
+<p>A notable example of these differences appears in clinical decision-making, where DeepSeek-R1 matched or exceeded proprietary models' performance across 125 patient cases, particularly excelling in diagnostic reasoning tasks.</p>
+<p>However, DeepSeek-R1's focus on reasoning comes with tradeoffs - it lacks GPT-4o's multimodal capabilities and real-time processing advantages. The model also shows sensitivity to politically sensitive topics, defaulting to policy statements rather than analytical responses.</p>
+<h3 id="sources">Sources</h3>
+<ul>
+<li>GPT-4o vs DeepSeek-R1 - Detailed Performance &amp; Feature Comparison: https://docsbot.ai/models/compare/gpt-4o/deepseek-r1</li>
+<li>DeepSeek-R1 vs ChatGPT-4o: Analyzing Performance Across Key Metrics: https://medium.com/@bernardloki/deepseek-r1-vs-chatgpt-4o-analyzing-performance-across-key-metrics-2225d078c16c</li>
+<li>Benchmark evaluation of DeepSeek large language models in clinical decision-making: https://www.nature.com/articles/s41591-025-03727-2</li>
+</ul>
+<h2 id="limitations-and-challenges">Limitations and Challenges</h2>
+<p><strong>DeepSeek-R1 exhibits an alarmingly high hallucination rate of 14.3% compared to its predecessor DeepSeek-V3's 3.9%, raising serious concerns about its reliability for production applications.</strong></p>
+<p>Testing reveals R1 is particularly prone to confident but incorrect responses, especially when handling queries beyond its training data cutoff of December 2023. For example, when asked about the January 2024 Golden Globe Awards, R1 confidently provided partially incorrect information about winners, demonstrating its tendency to generate plausible but false content.</p>
+<p>The model's hallucination patterns show distinct characteristics:</p>
+<ul>
+<li>Higher variance in accuracy compared to V3, with more borderline hallucinated responses</li>
+<li>Confident presentation of fabricated details, making errors harder to detect</li>
+<li>Tendency to &quot;overhelp&quot; by adding information not present in source materials</li>
+<li>Particular weakness in temporal boundaries, often failing to acknowledge knowledge cutoff dates</li>
+</ul>
+<p>While R1 demonstrates advanced reasoning capabilities, these come at the cost of reduced reliability. Organizations considering R1 for production use should implement robust verification processes and understand these behavioral patterns.</p>
+<h3 id="sources">Sources</h3>
+<ul>
+<li>Why does Deepseek-R1 hallucinate so much? : https://www.vectara.com/blog/why-does-deepseek-r1-hallucinate-so-much</li>
+<li>DeepSeek hallucinates more than other AI models : https://www.semafor.com/article/02/05/2025/deepseek-hallucinates-more-than-other-ai-models</li>
+<li>DeepSeek-R1 hallucinates more than DeepSeek-V3 : https://www.vectara.com/blog/deepseek-r1-hallucinates-more-than-deepseek-v3</li>
+</ul>
+<h2 id="market-impact-and-industry-significance">Market Impact and Industry Significance</h2>
+<p><strong>DeepSeek R1's release in January 2025 fundamentally disrupted AI market economics by demonstrating that high-performance models can be developed at a fraction of traditional costs.</strong> The immediate market impact saw Nvidia's value drop by $600 billion in a single day, while other tech giants experienced significant declines.</p>
+<p>DeepSeek's breakthrough challenges the assumption that effective AI development requires massive capital investment. Their R1 model, costing approximately $6 million to train, achieves performance comparable to OpenAI's GPT-4, which reportedly cost over $100 million.</p>
+<p>The cost efficiency extends to deployment, with DeepSeek's API pricing significantly undercutting competitors:</p>
+<ul>
+<li>Input tokens: 7¢ per million (vs OpenAI's $2.50)</li>
+<li>Output tokens: $1.10 per million (vs OpenAI's $10.00)</li>
+<li>Reasoning tasks: 55¢ per million inputs (vs OpenAI's $15.00)</li>
+</ul>
+<p>This pricing structure is forcing established players to reassess their business models and accelerating the democratization of AI technology. The implications extend beyond immediate market dynamics, potentially shifting investment patterns away from infrastructure-heavy approaches toward more efficient, specialized applications.</p>
+<h3 id="sources">Sources</h3>
+<ul>
+<li>DeepSeek claims 545% cost-profit ratio: https://www.computerworld.com/article/3837452/deepseek-claims-545-cost-profit-ratio-challenging-ai-industry-economics.html</li>
+<li>DeepSeek R1 shakes up AI: https://eandt.theiet.org/2025/02/04/deepseek-r1-shakes-ai-cost-revolution-could-change-everything</li>
+<li>Dot-Com to DeepSeek: https://english.ckgsb.edu.cn/knowledge/article/dot-com-to-deepseek-25-year-tech-bubble-comparison-for-ai-er/</li>
+</ul>
+<h2 id="the-future-of-deepseek-r1">The Future of DeepSeek-R1</h2>
+<p>DeepSeek-R1 represents a significant disruption in the AI landscape, demonstrating that sophisticated reasoning capabilities can be achieved at a fraction of traditional costs. While the model excels in mathematical and reasoning tasks, its increased hallucination rate poses challenges for widespread adoption.</p>
+<table>
+<thead>
+<tr>
+<th>Key Characteristics</th>
+<th>Strengths</th>
+<th>Limitations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Architecture</td>
+<td>671B MoE model with only 37B active parameters</td>
+<td>Higher computational overhead for complex tasks</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>SOTA results in mathematical reasoning (79.8% AIME)</td>
+<td>14.3% hallucination rate</td>
+</tr>
+<tr>
+<td>Cost Efficiency</td>
+<td>$0.55/1M tokens vs. competitors' $30/1M</td>
+<td>Limited multimodal capabilities</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>Effective knowledge transfer to smaller models</td>
+<td>Inconsistent multilingual performance</td>
+</tr>
+</tbody>
+</table>
+<p>The future trajectory of DeepSeek-R1 will likely focus on addressing its hallucination challenges while maintaining its cost advantages. Its market impact has already forced established players to reassess their pricing strategies, suggesting a broader shift toward more efficient, specialized AI models. The success of its distilled variants indicates that future developments may focus on creating smaller, more targeted models that maintain core reasoning capabilities while improving reliability.</p>
+
+</body>
+</html>

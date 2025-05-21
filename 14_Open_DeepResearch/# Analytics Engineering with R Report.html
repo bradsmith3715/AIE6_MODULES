@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title># Analytics Engineering with R Report.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="analytics-engineering-with-r-report">Analytics Engineering with R Report</h1>
+<h1 id="analytics-engineering-with-r">Analytics Engineering with R</h1>
+<p>Analytics engineering bridges the gap between raw data and actionable insights through reproducible, maintainable code workflows. R has emerged as a powerful platform for this discipline, offering a rich ecosystem of tools specifically designed for modern data analytics. The Tidyverse framework provides a cohesive approach to data manipulation and visualization, while packages like dplyr enable intuitive data transformations through a consistent grammar. When combined with efficient pipeline design and robust testing practices, R empowers analytics engineers to build scalable, reliable solutions that transform complex data challenges into clear business value.</p>
+<h2 id="the-tidyverse-ecosystem-for-analytics-engineering">The Tidyverse Ecosystem for Analytics Engineering</h2>
+<p><strong>The Tidyverse represents a cohesive framework of R packages specifically designed for modern data analytics workflows, centered around a consistent design philosophy and tidy data principles.</strong></p>
+<p>The core Tidyverse packages work together seamlessly to support the complete analytics engineering lifecycle. At its foundation, dplyr enables powerful data manipulation through intuitive verbs like filter(), select(), and mutate(), while tidyr ensures data remains in a clean, analyzable format where each variable forms a column and each observation forms a row.</p>
+<p>For visualization, ggplot2 implements the &quot;grammar of graphics&quot; approach, allowing engineers to build complex visualizations layer by layer. The ecosystem extends to specialized tasks through packages like readr for data import, stringr for text manipulation, and purrr for functional programming.</p>
+<p>Consider a typical analytics workflow: An engineer might use readr to import CSV data, tidyr to reshape it into a normalized structure, dplyr to filter and aggregate the results, and finally ggplot2 to create production-ready visualizations - all using consistent syntax and design patterns.</p>
+<h3 id="sources">Sources</h3>
+<ul>
+<li>Tidyverse for Data Science - datanovia: https://www.datanovia.com/learn/programming/r/advanced/tidyverse-for-data-science.html</li>
+<li>Intro to Tidyverse package - R Methods: https://rmethods.com/intro-to-tidyverse-package/</li>
+<li>The Tidyverse: dplyr, ggplot2, and friends - GitHub Pages: https://monashdatafluency.github.io/r-progtidy/topics/tidyverse.html</li>
+<li>What Are the Tidyverse Packages in R Language? - GeeksforGeeks: https://www.geeksforgeeks.org/what-are-the-tidyverse-packages-in-r-language/</li>
+</ul>
+<h2 id="data-transformation-with-dplyr">Data Transformation with dplyr</h2>
+<p><strong>The dplyr package revolutionizes data manipulation in R by providing an intuitive grammar of data transformation through a set of core &quot;verb&quot; functions.</strong> These functions form a consistent syntax that makes complex data operations more readable and maintainable compared to base R alternatives.</p>
+<p>The core dplyr verbs enable fundamental data transformations:</p>
+<ul>
+<li><code>select()</code> - Choose columns by name</li>
+<li><code>filter()</code> - Subset rows based on conditions</li>
+<li><code>mutate()</code> - Create or modify columns</li>
+<li><code>arrange()</code> - Sort rows by values</li>
+<li><code>summarise()</code> - Collapse rows into summary statistics</li>
+</ul>
+<p>These functions become especially powerful when combined with <code>group_by()</code>, which enables operations to be performed on grouped subsets of data. For example, using the mtcars dataset, you can calculate average horsepower by cylinder group:</p>
+<pre class="hljs"><code><div>mtcars %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(mean_hp = mean(hp))
+</div></code></pre>
+<p>The pipe operator (<code>%&gt;%</code>) chains these operations together in a logical sequence, making the code more readable and maintaining a clear flow of data transformation steps. This approach significantly reduces the cognitive load of writing and reviewing complex data manipulations.</p>
+<h3 id="sources">Sources</h3>
+<ul>
+<li>Working with dplyr package - R Methods: https://rmethods.com/working-with-dplyr-package/</li>
+<li>How to Filter and Transform Data with the dplyr Package: https://www.rprogramminginplainenglish.com/dplyr.html</li>
+<li>A Grammar of Data Manipulation • dplyr: https://dplyr.tidyverse.org/</li>
+</ul>
+<h2 id="building-efficient-data-pipelines-in-r">Building Efficient Data Pipelines in R</h2>
+<p><strong>The key to building maintainable data pipelines in R lies in combining functional programming with modern piping syntax to create readable, reproducible code flows.</strong> The pipe operator (<code>%&gt;%</code> from magrittr or <code>|&gt;</code> in base R 4.1+) enables developers to chain operations in a logical left-to-right sequence, eliminating the need for nested function calls or temporary variables.</p>
+<p>A well-designed data pipeline should follow these core principles:</p>
+<ul>
+<li>Chain operations sequentially using pipes</li>
+<li>Keep pipeline steps focused and single-purpose</li>
+<li>Limit pipeline length to under 10 steps</li>
+<li>Use consistent syntax within each pipeline</li>
+<li>Document transformation steps clearly</li>
+</ul>
+<p>For example, a typical analytics pipeline might combine data.table for performance-critical operations with tidyverse functions for readability: <code>raw_data %&gt;% as.data.table() %&gt;% .[, sum(value), by=group] %&gt;% as_tibble()</code>. This approach marries the speed of data.table with the intuitive syntax of pipes.</p>
+<p>The choice between magrittr's <code>%&gt;%</code> and base R's <code>|&gt;</code> depends on specific needs. While both handle basic piping similarly, magrittr offers additional features like the placeholder operator (<code>.</code>) for complex operations, though at the cost of some performance overhead.</p>
+<h3 id="sources">Sources</h3>
+<ul>
+<li>Using data.table with magrittr pipes: https://martinctc.github.io/blog/using-data.table-with-magrittr-pipes-best-of-both-worlds/</li>
+<li>A Forward-Pipe Operator for R: https://magrittr.tidyverse.org/</li>
+<li>Differences between base R and magrittr pipes: https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/</li>
+</ul>
+<h2 id="best-practices-for-analytics-engineering-in-r">Best Practices for Analytics Engineering in R</h2>
+<p><strong>The foundation of effective analytics engineering in R rests on three key pillars: code efficiency, reproducibility, and robust testing.</strong></p>
+<p>Code efficiency begins with using the latest version of R and benchmarking performance through proper profiling. Focus on algorithmic improvements rather than language optimizations, as the underlying approach matters more than syntax choices.</p>
+<p>For reproducibility, establish consistent naming conventions and file organization patterns. Structure projects with clear separation between data cleaning, analysis, and visualization scripts. Document dependencies explicitly in package management files.</p>
+<p>Testing serves as the cornerstone of reliable analytics code. Implement automated unit testing using the testthat package to validate function behaviors. Create mock datasets that mirror production data structures while preserving privacy. Use test coverage tools like covr to identify gaps in test coverage.</p>
+<p>Key implementation practices:</p>
+<ul>
+<li>Break complex functions into smaller, testable units</li>
+<li>Add input validation with informative error messages</li>
+<li>Write tests before fixing bugs to prevent regressions</li>
+<li>Use continuous integration to automate testing</li>
+<li>Document expected inputs/outputs thoroughly</li>
+</ul>
+<h3 id="sources">Sources</h3>
+<ul>
+<li>Best Practices for Unit Testing and Linting with R: https://medium.com/@mindlessroman/best-practices-for-unit-testing-and-linting-with-r-6d40be95391c</li>
+<li>R Code Best Practices: https://www.r-bloggers.com/2018/09/r-code-best-practices/</li>
+<li>Getting started with unit testing in R: https://www.pipinghotdata.com/posts/2021-11-23-getting-started-with-unit-testing-in-r/</li>
+<li>Best Coding Practices for R: https://bookdown.org/content/d1e53ac9-28ce-472f-bc2c-f499f18264a3/</li>
+</ul>
+<h2 id="the-future-of-analytics-engineering-with-r">The Future of Analytics Engineering with R</h2>
+<p>R's evolution as a cornerstone of modern analytics engineering continues to be driven by the powerful integration of the Tidyverse ecosystem, efficient data transformation capabilities, and robust pipeline development practices. The language's strength lies in its ability to combine intuitive syntax with high-performance computing, making it particularly well-suited for data-intensive analytics workflows.</p>
+<p>Key developments in the R analytics engineering landscape:</p>
+<ul>
+<li>Increased adoption of functional programming paradigms through pipes and dplyr verbs</li>
+<li>Enhanced focus on reproducibility through automated testing and version control</li>
+<li>Growing emphasis on pipeline optimization and performance benchmarking</li>
+<li>Integration of modern development practices like continuous integration</li>
+<li>Streamlined data transformation workflows through the Tidyverse ecosystem</li>
+</ul>
+<p>As organizations continue to prioritize data-driven decision making, R's role in analytics engineering will likely expand, particularly in areas requiring complex data manipulation and statistical analysis. The future points toward even tighter integration between R's various toolsets, with an emphasis on scalability, reproducibility, and maintainable code structures.</p>
+
+</body>
+</html>
