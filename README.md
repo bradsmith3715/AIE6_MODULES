@@ -1,55 +1,59 @@
-# 🧑‍💻 What is [AI Engineering](https://maven.com/aimakerspace/ai-eng-bootcamp)?
-
-<p align="center" draggable="false">
-<img src="https://i.imgur.com/fTLO44k.png" 
-     width="1000px"
+<p align = "center" draggable=”false” ><img src="https://github.com/AI-Maker-Space/LLM-Dev-101/assets/37101144/d1343317-fa2f-41e1-8af1-1dbb18399719" 
+     width="200px"
      height="auto"/>
 </p>
 
-Learn more about [The AI Engineering Bootcamp!](https://aimakerspace.io/the-ai-engineering-bootcamp/)
+## <h1 align="center" id="heading">LangSmith & LangGraph Studio</h1>
 
-AI Engineering refers to the industry-relevant skills that data science and engineering teams need to successfully **build, deploy, operate, and improve Large Language Model (LLM) applications in production environments**.  
+### [Quicklinks](https://github.com/AI-Maker-Space/AIE5/00_AIM_Quicklinks)
 
-In practice, this requires understanding both prototyping and production deployments.
+| 🤓 Pre-work | 📰 Session Sheet | ⏺️ Recording     | 🖼️ Slides        | 👨‍💻 Repo         | 📝 Homework      | 📁 Feedback       |
+|:-----------------|:-----------------|:-----------------|:-----------------|:-----------------|:-----------------|:-----------------|
+| [Session 16: LLM Ops: Operating RAG in Production](https://www.notion.so/Session-16-LLM-Ops-Operating-RAG-in-Production-1c8cd547af3d815795f8f2a8c626fa60?pvs=4#1c8cd547af3d81108a30c4a9db742661) | [Session 16: LLM Ops: Operating RAG in Production](https://www.notion.so/Session-16-LLM-Ops-Operating-RAG-in-Production-1c8cd547af3d815795f8f2a8c626fa60) | [Recording](https://us02web.zoom.us/rec/share/MIqBKtvqX-MVX2iVIypF2x4nburlIAX5hsleF7CUeFomG9QGUtnBcz4YVdGapmtU.iHoOvDy3lTOc0nJ-)  (FsQWwi?5) | [Session 16 Slides](https://www.canva.com/design/DAGjaXGSJVE/4o7sKV5uNEyLrFi5wTEvoA/edit?utm_content=DAGjaXGSJVE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton) | You are here! | [Session 16: LLM Ops: Operating RAG in Production](https://forms.gle/mawQduxCRtRdzm1r8) | [AIE6 Feedback 5/22](https://forms.gle/FZnfaUQcBFawCaTT7) |
 
-During the *prototyping* phase, Prompt Engineering, Retrieval Augmented Generation (RAG), Agents, and Fine-Tuning are all necessary tools to be able to understand and leverage. Prototyping includes:
-1. Building RAG Applications
-2. Building with Agent and Multi-Agent Frameworks
-3. Fine-Tuning LLMs & Embedding Models
-4. Deploying LLM Prototype Applications to Users
 
-When *productionizing* LLM application prototypes, there are many important aspects ensuring helpful, harmless, honest, reliable, and scalable solutions for your customers or stakeholders. Productionizing includes:
-1. Evaluating RAG and Agent Applications
-2. Improving Search and Retrieval Pipelines for Production
-3. Monitoring Production KPIs for LLM Applications
-4. Setting up Inference Servers for LLMs and Embedding Models
-5. Building LLM Applications with Scalable, Production-Grade Components
+# Build 🏗️
 
-This bootcamp builds on our two previous courses, [LLM Engineering](https://maven.com/aimakerspace/llm-engineering) and [LLM Operations](https://maven.com/aimakerspace/llmops) 👇
+Run the notebook and complete the following:
 
-- Large Language Model Engineering (LLM Engineering) refers to the emerging best-practices and tools for pretraining, post-training, and optimizing LLMs prior to production deployment.  Pre- and post-training techniques include unsupervised pretraining, supervised fine-tuning, alignment, model merging, distillation, quantization. and others.
-    
-- Large Language Model Ops (LLM Ops, or LLMOps (as from [WandB](https://docs.wandb.ai/guides/prompts) and [a16z](https://a16z.com/emerging-architectures-for-llm-applications/))) refers to the emerging best-practices, tooling, and improvement processes used to manage production LLM applications throughout the AI product lifecycle.  LLM Ops is a subset of Machine Learning Operations (MLOps) that focuses on LLM-specific infrastructure and ops capabilities required to build, deploy, monitor, and scale complex LLM applications in production environments.  _This term is being used much less in industry these days._
+1. 🤝 BREAKOUT ROOM #1:
+  - Task 1: Set Up HF Endpoints As in Session 15
+  - Task 2: Depends and Set-Up
+  - Task 3: Setting up RAG With Production in Mind
+  - Task 4: RAG LCEL Chain
+2. 🤝 BREAKOUT ROOM #2:
+  - Clone the [open_deep_research](https://github.com/langchain-ai/open_deep_research) repository *outside* of your AIE6 Repository. 
 
-# 🏆 **Grading and Certification**
+    ```bash
+    cd ~
+    git clone https://github.com/langchain-ai/open_deep_research
+    ```
 
-To become **AI-Makerspace Certified**, which will open you up to additional opportunities for full and part-time work within our community and network, you must:
+  - Deploy LangGraph Studio for [open_deep_research](https://github.com/langchain-ai/open_deep_research) by following the instructions in that README.md
 
-1. Complete all project assignments.
-2. Complete a project and present during Demo Day.
-3. Receive at least an 85% total grade in the course.
+## ADVANCED BUILD:
 
-If you do not complete all assignments, participate in Demo Day, or maintain a high-quality standard of work, you may still be eligible for a *certificate of completion* if you miss no more than 2 live sessions.
+The caching we're using is both: 
 
-# 📚 About
+1. Ineffecient
+2. Exact Match
 
-This GitHub repository is your gateway to mastering the art of AI Engineering.  ***All assignments for the course will be released here for your building, shipping, and sharing adventures!***
+Please produce a locally running application (through Docker) that integrates a more intelligent caching process.
 
-# 🙏 Contributions
+In simpler terms: 
 
-We believe in the power of collaboration. Contributions, ideas, and feedback are highly encouraged! Let's build the ultimate resource for AI Engineering together.
+- Use a database approach (Redis, Vectordatase, SQLite, etc.) instead of plain-memory for caching
+- Implement Semantic LLM Caching OR Implement E2E Caching
 
-Please to reach out with any questions or suggestions. 
+> NOTE: Doing the advanced build will count as your assignment for the week. If you do the advanced build, you are not required to do the notebook.
 
-Happy coding! 🚀🚀🚀
+# Ship 🚢
 
+- HF App.
+- 5min. Loom Video
+
+# Share 🚀
+- Walk through your notebook and explain what you've completed in the Loom video
+- Make a social media post about your final application and tag @AIMakerspace
+- Share 3 lessons learned
+- Share 3 lessons not learned
